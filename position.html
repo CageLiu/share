@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Css属性之Position</title>
+		<style type="text/css">
+			*{margin:0;padding:0}
+			a{text-decoration:none;color:#000}
+			a:hover{color:#f30}
+			a img{border:none}
+			ul,ol{list-style:none}
+			body{font-size:12px;background:#fff;padding:5px 0}
+			.wrap{width:990px;margin:0 auto}
+			dt.property_name{text-transform:capitalize;height:25px;line-height:25px;background:#A0BCF3;border:1px solid #888;text-indent:1em;font-size:14px;font-weight:bold}
+			dd.property_item{text-transform:capitalize;margin:5px 0;background:#e0e0e0;border:1px solid #bbb;padding:0.5em 1em}
+			dd.property_item p{line-height:23px}
+			dd.tips{border:1px solid #f30;background:#FFD4D4;padding:10px;margin-top:10px}
+			dd.example{border-style:dotted none;border-width:1px;border-color:#333;padding:5px 0 10px}
+			.parent{background:#333;margin:10px 2.5em 0;min-height:150px;color:#fff;padding:10px;line-height:30px;font-size:14px}
+			.child{background:#ccc;min-height:90px;color:#000}
+			p.tips{color:#f20;font-weight:bold}
+		</style>
+	</head>
+
+	<body>
+		<div class="wrap">
+			<dl class="propety">
+				<dt class="property_name">
+				position 定位
+				</dt>
+				<dd class="property_item">
+					<strong>static</strong>
+					<p>static是position的默认属性;无特殊定位规则，遵循HTML定位规则</p>
+					<p>要恢复元素的默认定位属性可以用该属性覆盖relative、absolute、fixed</p>
+					<p class="tips">常用于重置元素的position属性</p>
+				</dd>
+				<dd class="example">
+					<strong>示例：</strong>
+					<div class="parent" style="position:static;left:100px;top:100px">
+						我是父级元素,我拥有static和left、top值，但是我的位置并没有偏移
+						<div class="child" style="position:static;right:100px;bottom:100px">
+							我是子元素,我也拥有static和right、bottom值，我的位置同样没有偏移
+						</div>
+					</div>
+				</dd>
+				<dd class="property_item">
+					<strong>relative</strong>
+					<p>依据left、right、top、bottom等属性在正常文档流中进行偏移,可以使用z-index制定层级</p>
+					<p>一般的，要使包含于某个元素内的子元素相对该元素的位置进行偏移，将该元素设置为relative，再给要偏移的元素设置absolute和相应的left、right、top、bottom值即可</p>
+					<p class="tips">一般配合absolute进行使用</p>
+				</dd>
+				<dd class="example">
+					<strong>示例：</strong>
+					<div class="parent" style="position:relative;left:10px;top:10px">
+						我是父级元素,我拥有relative和left、top值，我相对于默认位置，偏移了左边和上面10个px（即往右和往下移动了10个px）
+						<div class="child" style="position:relative;right:10px;bottom:10px">
+							我和我的父亲一样，也偏了，-_-!,可以看到，我把父亲元素的左内边距给占掉了！囧！
+						</div>
+					</div>
+				</dd>
+				<dd class="property_item">
+					<strong>absolute</strong>
+					<p>将对象从文档流拖出，使用left，right，top，bottom等属性进行绝对定位。而其层叠通过z-index属性定义。此时对象不具有边距，但仍有补白和边框</p>
+					<p>该属性适合对元素进行精确定位，其偏移的位置是相对于离它最近的拥有relative、absolute或fixed之一的祖先元素进行计算的.对行内元素使用该属性，将会使它们拥有一些和块级元素一样的特性，如定义margin-top、margin-bottom，paddingtop、padding-bottom、width、height等</p>
+					<p class="tips">经常用于弹出层、下来菜单、标题栏右边标签等等</p>
+				</dd>
+				<dd class="example">
+					<strong>示例：</strong>
+					<div class="parent" style="position:relative">
+						我是父级元素,我拥有relative和left、top值，我相对于默认位置，偏移了左边和上面10个px（即往右和往下移动了10个px）<br/>
+						你还应该注意到，如果我没有min-height（最小高度）属性，你将只能看到我被这些文字所撑开的高度(试着在firebug里去掉min-height)
+						<div class="child" style="position:absolute;right:10px;bottom:10px">
+							我拥有了absolute，相对于我的父亲进行了右下各10个px的偏移,可以看到，我的宽度不再是auto，而是取决于内容的宽度了<br/>
+							而且我偏移的位置也是从右下角那个点开始计算的，^_^。<br/>(当然，从哪个角开始计算取决于你的指定,这里是right和bottom，所以是右下)
+						</div>
+					</div>
+				</dd>
+				<dd class="property_item">
+					<strong>fixed</strong>
+					<p>将对象从文档流中拖出，使用left、right、top、bottom等属性进行相对于浏览器窗体进行定位。可以通过z-index指定层级</p>
+					<p>拥有该属性的元素的偏移位置永远是相对浏览器窗口进行计算的，而不管是否存在拥有relative、absolute、fixed的祖先元素.其明显特征就是其位置不会随浏览器窗口的滚动条的滚动而改变。遗憾的是,IE6尚不支持该属性</p>
+					<p class="tips">
+						常用于固定显示在浏览器窗口中的元素
+					</p>
+				</dd>
+				<dd class="example">
+					<strong>示例：</strong>
+					<div class="parent" style="position:relative">
+						虽然我拥有了relative，但我的不肖子因为有了fixed，就投入浏览器窗口的怀抱了。-_-！,看看左上角的那个混蛋的熊样，囧！
+						<div class="child" style="position:fixed;top:10px;left:10px">哈哈哈！我有fixed，<br/>现在跟着浏览器窗口<br/>混了!^_^!</div>
+					</div>
+				</dd>
+				<dd class="tips">以上内容混合了css2.0手册的内容和自己对position的理解，如有不对之处，欢迎指正！</dd>
+			</dl>
+		</div>
+	</body>
+</html>
